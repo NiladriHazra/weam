@@ -372,7 +372,8 @@ export const MODEL_IMAGE_BY_CODE={
     PERPLEXITY: '/perplexity.png',
     DEEPSEEK: '/Deepseek.png',
     GROK: '/grok.png',
-    QWEN: '/qwen.png'
+    QWEN: '/qwen.png',
+    OLLAMA: '/Ai-icon.svg'
 }
 
 export const ALLOWED_TYPES = [
@@ -746,6 +747,7 @@ export const MODEL_CREDIT_INFO = [
         displayName: 'Claude 3.5 Sonnet Latest',
         snippet: 'Ideal for complex coding and long-form content.',
         doc: true,
+        websearch: false,
         vision: true,
         image: false,
         reasoning: true,
@@ -964,7 +966,10 @@ export const SUB_MODEL_TYPE = [
     'GEMINI',
     'PERPLEXITY',
     'DEEPSEEK',
-    'LLAMA4'
+    'LLAMA4',
+    'GROK',
+    'QWEN',
+    'OLLAMA'
 ] as const;
 
 // 500 Credits
