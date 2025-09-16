@@ -4,15 +4,12 @@ import {
     MembersIcon,
     SettingsIcon,
 } from '@/icons/SettingsIcon';
-import Link from 'next/link';
+import SuperSolutionIcon from '@/icons/SuperSolutionIcon';
 import React from 'react';
 import { LINK } from '@/config/config';
 import { getSessionUser } from '@/utils/handleAuth';
 import { ROLE_TYPE } from '@/utils/constant';
-import routes from '@/utils/routes';
-import Setting from '@/icons/Setting';
-import TemplateIcon from '@/icons/TemplateIcon';
-import ArrowBack from '@/icons/ArrowBack';
+import { hasPermission, PERMISSIONS, Role } from '@/utils/permission';
 import { TemplateLibrary } from './SettingSelection';
 import ReportIcon from '@/icons/ReportIcon';
 import PrivateVisible from '../Brains/PrivateVisible';
@@ -22,6 +19,7 @@ import StorageIcon from '@/icons/StorageIcon';
 import SupportIcon from '@/icons/SupportIcon';
 import SidebarFooter from './SidebarFooter';
 import SettingOptions from './SettingOptions';
+import SolutionAppIcon from '@/icons/SolutionsIcons';
 import CreditControlIcon from '@/icons/CreditControlIcon';
 
 const BackButton = dynamic(() => import('./BackButton'), { ssr: false });
@@ -137,6 +135,19 @@ const SettingSidebar = async () => {
             target: '_blank',
         },
         {
+            name: 'Apps',
+            icon: (
+                <SolutionAppIcon
+                    height={18}
+                    width={18}
+                    className={'w-[18px] h-auto object-contain fill-b2'}
+                />
+            ),
+            hasAccess: hasPermission(userDetail?.roleCode as Role, PERMISSIONS.SUPER_SOLUTION_ACCESS),
+            navigate: `${LINK.DOMAIN_URL}/settings/super-solution`,
+            slug: '/settings/super-solution',
+        },
+        {
             name: 'Credit Control',
             icon: (
                 <CreditControlIcon
@@ -148,7 +159,7 @@ const SettingSidebar = async () => {
             hasAccess: (userDetail?.roleCode == ROLE_TYPE.COMPANY) ? true : false,
             navigate: `${LINK.DOMAIN_URL}/settings/credit-control`,
             slug: '/settings/credit-control',
-        },
+        }
     ];
     return (
         <>
