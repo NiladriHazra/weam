@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import ValidationError from '@/widgets/ValidationError';
 import commonApi from '@/api';
-import { MODULE_ACTIONS } from '@/utils/constant';
+import { MODULE_ACTIONS, RESPONSE_STATUS_CODE } from '@/utils/constant';
 
 // Validation schema for Ollama settings
 const ollamaSettingsSchema = yup.object({
@@ -61,9 +61,9 @@ const OllamaSettings: React.FC<OllamaSettingsProps> = ({
                 }
             });
 
-            if (response.success) {
+            if (response.code === RESPONSE_STATUS_CODE.SUCCESS) {
                 setConnectionStatus('success');
-                setAvailableModels(response.availableModels || []);
+                setAvailableModels(response.data?.availableModels || []);
                 return true;
             } else {
                 setConnectionStatus('error');
@@ -97,7 +97,7 @@ const OllamaSettings: React.FC<OllamaSettingsProps> = ({
                 }
             });
 
-            if (response.success) {
+            if (response.code === RESPONSE_STATUS_CODE.SUCCESS) {
                 setApiKeyUpdated?.(true);
                 setShowCancelAPI?.(true);
             }
